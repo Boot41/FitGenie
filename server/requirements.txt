@@ -1,5 +1,0 @@
-fastapi[all]
-uvicorn
-sqlalchemy
-db-sqlite3
-databases
