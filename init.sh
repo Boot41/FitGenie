@@ -12,11 +12,10 @@ fi
 
 
 # Check and install backend dependencies
-if [ -f "server/requirements.txt" ]; then
-   echo "Setting up Python environment and installing backend dependencies..."
-   python3 -m venv venv
-   . venv/bin/activate
-   pip install -r server/requirements.txt
+if [ -f "server/package.json" ]; then
+   echo "Setting up Node environment and installing backend dependencies..."
+   npm install --prefix server
+   npm run dev --prefix server
 else
-   echo "Backend requirements.txt not found"
+   echo "Backend package.json not found"
 fi
