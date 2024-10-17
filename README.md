@@ -1,9 +1,9 @@
-# FastAPI-React App
+# FitGenie
 
 ### Built using Dev41
 
 ## Overview
-This repository contains a web application built with FastAPI for the backend and React for the frontend. The application is designed to provide a seamless user experience while interacting with the backend services.
+This repository contains a web application built with Node for the backend and React for the frontend. The application is designed to provide a seamless user experience while interacting with the backend services.
 
 ## Table of Contents
 - [Features](#features)
@@ -19,16 +19,16 @@ This repository contains a web application built with FastAPI for the backend an
 - Responsive design with a modern UI
 
 ## Technologies Used
-- **Backend**: FastAPI
+- **Backend**: Node(Express)
 - **Frontend**: React
-- **Database**: PostgreSQL (or any other database you choose)
-- **Styling**: Tailwind CSS (or any other CSS framework)
+- **Database**: Sqllite
+- **Styling**: Tailwind CSS 
 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Dev41/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/Boot41/FitGenie.git
+   cd FitGenie
    ```
 
 2. Set up the backend:
@@ -36,14 +36,9 @@ This repository contains a web application built with FastAPI for the backend an
      ```bash
      cd backend
      ```
-   - Create a virtual environment and activate it:
-     ```bash
-     python -m venv venv
-     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-     ```
    - Install the required packages:
      ```bash
-     pip install -r requirements.txt
+     npm install
      ```
 
 3. Set up the frontend:
@@ -57,13 +52,15 @@ This repository contains a web application built with FastAPI for the backend an
      ```
 
 ## Usage
-1. Start the backend server from the project root directory:
+1. Start the Backend development server:
    ```bash
-   uvicorn server.main:app --reload
+   cd backend
+   npm run dev
    ```
 
 2. Start the frontend development server:
    ```bash
+   cd frontend
    npm start
    ```
 
