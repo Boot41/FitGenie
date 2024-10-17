@@ -20,7 +20,7 @@ This repository contains a web application built with Node for the backend and R
 
 ## Technologies Used
 - **Backend**: Node(Express)
-- **Frontend**: React
+- **Frontend**: React(Vite)
 - **Database**: Sqllite
 - **Styling**: Tailwind CSS 
 
@@ -34,7 +34,7 @@ This repository contains a web application built with Node for the backend and R
 2. Set up the backend:
    - Navigate to the backend directory:
      ```bash
-     cd backend
+     cd server
      ```
    - Install the required packages:
      ```bash
@@ -44,7 +44,7 @@ This repository contains a web application built with Node for the backend and R
 3. Set up the frontend:
    - Navigate to the frontend directory:
      ```bash
-     cd frontend
+     cd client
      ```
    - Install the required packages:
      ```bash
@@ -54,17 +54,17 @@ This repository contains a web application built with Node for the backend and R
 ## Usage
 1. Start the Backend development server:
    ```bash
-   cd backend
+   cd server
    npm run dev
    ```
 
 2. Start the frontend development server:
    ```bash
-   cd frontend
-   npm start
+   cd client
+   npm run dev
    ```
 
-3. Open your browser and navigate to `http://localhost:3000` to view the application.
+3. Open your browser and navigate to `http://localhost:5173` to view the application.
 
 ## Contributing
 Contributions are welcome! Please follow these steps:
