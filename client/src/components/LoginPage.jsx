@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth.js";
-import { HiEye, HiEyeOff } from "react-icons/hi"; 
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const LoginPage = () => {
   const {
@@ -12,7 +12,7 @@ const LoginPage = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
     try {
@@ -29,11 +29,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-50 to-yellow-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-indigo-600 mb-6">
-          <Link to={"/"}>Login to FitGenie</Link>
-        </h2>
+        <div className="text-center mb-6">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 pb-2">
+            <Link to={"/"}>FitGenie</Link>
+          </h2>
+          <p className="text-xl font-semibold">Login to Your Account</p>
+        </div>
+
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="block text-gray-700 font-medium mb-2">
@@ -84,13 +88,13 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary w-full bg-indigo-600 hover:bg-indigo-700"
+            className="btn btn-primary border-yellow-600 hover:border-yellow-400  w-full bg-yellow-400 hover:bg-yellow-600"
           >
             Login
           </button>
           <div className="text-center text-gray-600">
-            Don't have an account?{" "}
-            <Link to="/signup" className="text-indigo-600 hover:underline">
+            Don&lsquo;t have an account?{" "}
+            <Link to="/signup" className="text-yellow-400 hover:underline">
               Sign Up
             </Link>
           </div>
