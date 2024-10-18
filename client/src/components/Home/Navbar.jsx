@@ -2,19 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { IoExit } from "react-icons/io5";
-import { useAuth } from "../../context/AuthContext";
 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useAuth();
 
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
-    logout();
   };
 
   const token = localStorage.getItem("token");

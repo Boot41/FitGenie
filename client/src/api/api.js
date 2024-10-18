@@ -1,38 +1,56 @@
-import axios from "axios";
+import apiClient from "./apiSetup";
+import toast from 'react-hot-toast'
 
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, 
-  timeout: 10000, 
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 
-// Request Interceptor to handle token or custom logic
-apiClient.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+export const loginUser = async (credentials) => {
+    try {
+        const response = await apiClient.post("/auth/login", credentials);
+
+        toast.success(response.message);
+        return response;
+    } catch (error) {
+        console.log(error);
+
+        toast.error(error.response.data.message);
+        throw error;
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+};
 
-// Response Interceptor to handle global errors or data transformations
-apiClient.interceptors.response.use(
-  (response) => {
-    return response.data; 
-  },
-  (error) => {
-    if (error?.response?.status === 401) {
-      console.log(error);
+
+export const signUpUser = async (userData) => {
+
+    try {
+        const response = await apiClient.post("/auth/signup", userData);
+
+        toast.success(response.message);
+        return response;
+    } catch (error) {
+        toast.error(error.response.data.message);
+        throw error;
     }
-    return Promise.reject(error);
-  }
-);
+};
 
-export default apiClient;
+
+
+export const getUserProfile = async () => {
+    try {
+        const response = await apiClient.get("/profile/getUser");
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+
+export const updateUserProfile = async (data) => {
+    try {
+        const response = await apiClient.put("/profile/updateUser",data);
+        toast.success(response.message)
+        return response;
+    } catch (error) {
+        toast.error(error.response.data.message)
+        console.log(error);
+        throw error;
+    }
+};
