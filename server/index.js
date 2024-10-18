@@ -1,12 +1,26 @@
-import express from "express";
+import express from 'express';
+import dotenv from 'dotenv';
+import sequelize from './config/database.js';
+import authRoutes from './routes/authRoutes.js';
+import cors from 'cors'
+
+dotenv.config();
+
 
 const app = express();
-const port = 8000;
+
+app.use(cors());
+app.use(express.json());
+
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Hello, think41!');
-});
+  return res.send("server is running....")
+})
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+sequelize.sync().then(() => console.log('Database synced'));
+
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
