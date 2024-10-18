@@ -11,17 +11,17 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Signup Controller
 export const signup = async (req, res) => {
-    const { email, password } = req.body;
+    const { fullName,email, password } = req.body;
 
     try {
         const userExists = await User.findOne({ where: { email } });
         if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
         }
-
+        
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await User.create({ email, password: hashedPassword });
+        const newUser = await User.create({ name:fullName, email, password: hashedPassword });
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {

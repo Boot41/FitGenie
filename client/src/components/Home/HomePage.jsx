@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 
 const HomePage = () => {
   return (
-    <div className=" bg-white">
+    <div className="bg-white">
       <Navbar />
       <HeroSection />
       <FeaturesSection />

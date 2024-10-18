@@ -17,6 +17,8 @@ const SignUpPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit = async (data) => {
+    console.log(data);
+    
     try {
       const response = await signUpUser(data);
       navigate("/login");
