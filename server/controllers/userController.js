@@ -56,11 +56,11 @@ export const aiGenerateDiet = async (req, res) => {
         const chatCompletion = await getGroqChatCompletion(userInput);
 
         const responseContent = chatCompletion.choices[0]?.message?.content || '';
-        console.log(responseContent);
+
         
-        res.json({ message1: responseContent });
+        res.status(200).json({ message: responseContent });
     } catch (error) {
         console.error('Error calling Groq API:', error);
-        res.status(500).json({ error: 'Error generating MC diagram.' });
+        res.status(500).json({ error: 'Error generating Diet.' });
     }
 }

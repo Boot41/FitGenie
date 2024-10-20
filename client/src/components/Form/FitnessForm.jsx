@@ -4,20 +4,26 @@ import { useForm } from "react-hook-form";
 import { updateUserProfile } from "../../api/api";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import useUserStore from "../../store/useUserStore";
 
-const FitnessForm = ({ userDetails }) => {
+const FitnessForm = () => {
   const navigate = useNavigate();
+  const { userDetails } = useUserStore();
   const { register, handleSubmit, reset, watch } = useForm();
 
   useEffect(() => {
-    if (userDetails) {
-      reset(userDetails); 
+    if (userDetails && Object.keys(userDetails).length > 0) {
+      reset(userDetails);
     }
   }, [userDetails, reset]);
 
   const onSubmit = async (data) => {
-    const res = await updateUserProfile(data);
-    navigate('/')
+    try {
+      const res = await updateUserProfile(data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
   };
 
   if (!userDetails) {
@@ -29,7 +35,7 @@ const FitnessForm = ({ userDetails }) => {
       {userDetails && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mx-6 md:mx-32  p-4 border rounded-lg shadow-lg bg-white pb-4 mb-12"
+          className="mx-6 md:mx-32  p-4 border rounded-lg shadow-lg bg-white pb-4 my-12"
         >
           <h2 className="text-xl font-bold mb-4 text-gray-800">
             Fitness Profile
@@ -39,7 +45,9 @@ const FitnessForm = ({ userDetails }) => {
             <label className="block mb-2 text-gray-800 font-semibold">
               Email
             </label>
-            <span className="text-sm cursor-not-allowed">Email cannot be changed*</span>
+            <span className="text-sm cursor-not-allowed">
+              Email cannot be changed*
+            </span>
             <input
               type="email"
               {...register("email")}

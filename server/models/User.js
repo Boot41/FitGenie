@@ -13,78 +13,71 @@ const User = sequelize.define('User', {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   age: {
     type: DataTypes.INTEGER,
-    allowNull: true, 
+    allowNull: true,
   },
   gender: {
     type: DataTypes.ENUM('Male', 'Female', 'Other'),
-    allowNull: true, 
+    allowNull: true,
   },
   height: {
     type: DataTypes.FLOAT, // Height in cm
-    allowNull: true, 
+    allowNull: true,
   },
   weight: {
     type: DataTypes.FLOAT, // Weight in kg
-    allowNull: true, 
+    allowNull: true,
   },
   activityLevel: {
     type: DataTypes.ENUM('Sedentary', 'Lightly Active', 'Moderately Active', 'Very Active'),
-    allowNull: true, 
+    allowNull: true,
   },
   dietType: {
     type: DataTypes.ENUM('Veg', 'Non-Veg', 'Vegan', 'Any'),
-    allowNull: true, 
+    allowNull: true,
   },
   foodRestrictions: {
-    type: DataTypes.TEXT, 
+    type: DataTypes.TEXT,
     allowNull: true,
-    defaultValue: '[]', 
-    get() {
-      return JSON.parse(this.getDataValue('foodRestrictions'));
-    },
-    set(val) {
-      this.setDataValue('foodRestrictions', JSON.stringify(val));
-    },
   },
   fitnessGoal: {
     type: DataTypes.ENUM('Weight Loss', 'Muscle Gain', 'Maintenance', 'Endurance'),
-    allowNull: true, 
+    allowNull: true,
   },
   injuries: {
-    type: DataTypes.TEXT, 
+    type: DataTypes.TEXT,
     allowNull: true,
   },
   healthConditions: {
-    type: DataTypes.TEXT, 
+    type: DataTypes.TEXT,
     allowNull: true,
   },
   waterIntake: {
     type: DataTypes.ENUM('Less than 1L', '2-3L', 'Above 3L'),
-    allowNull: true, 
+    allowNull: true,
   },
   smokingHabit: {
     type: DataTypes.ENUM('Yes', 'No'),
-    allowNull: true, 
+    allowNull: true,
   },
   alcoholHabit: {
     type: DataTypes.ENUM('Yes', 'No'),
-    allowNull: true, 
+    allowNull: true,
   },
   currentlyWorkout: {
     type: DataTypes.ENUM('Yes', 'No'),
-    allowNull: true, 
+    allowNull: true,
   },
   workoutType: {
     type: DataTypes.ENUM('Cardio', 'Weightlifting', 'Calisthenics'),
-    allowNull: true, 
+    allowNull: true,
   },
   workoutDuration: {
-    type: DataTypes.INTEGER, 
-    allowNull: true, 
+    type: DataTypes.INTEGER,
+    allowNull: true,
   },
   workoutFrequency: {
     type: DataTypes.ENUM(
@@ -96,11 +89,11 @@ const User = sequelize.define('User', {
       '6 days a week',
       '7 days a week'
     ),
-    allowNull: true, 
+    allowNull: true,
   },
   workoutTimePreference: {
     type: DataTypes.ENUM('Morning', 'Afternoon', 'Evening'),
-    allowNull: true, 
+    allowNull: true,
   },
 }, {
 });

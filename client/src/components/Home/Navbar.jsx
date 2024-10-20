@@ -29,7 +29,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-yellow-50 shadow-lg fixed top-0 w-full z-50">
+    <nav className="bg-yellow-50 shadow-lg w-full ">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" className="text-yellow-400 font-extrabold text-2xl ">
           FitGenie
