@@ -1,7 +1,7 @@
 import {  useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../api/api.js";
+import { loginUser } from "../../api/api.js";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const LoginPage = () => {
