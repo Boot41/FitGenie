@@ -1,7 +1,7 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../api/auth.js";
+import { loginUser } from "../../api/api.js";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const LoginPage = () => {
@@ -14,6 +14,7 @@ const LoginPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data);
@@ -21,7 +22,6 @@ const LoginPage = () => {
       const { token } = response;
 
       localStorage.setItem("token", token);
-
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);

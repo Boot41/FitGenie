@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { signUpUser } from "../api/auth";
+import { signUpUser } from "../../api/api.js";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const SignUpPage = () => {
@@ -17,6 +17,8 @@ const SignUpPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit = async (data) => {
+    console.log(data);
+    
     try {
       const response = await signUpUser(data);
       navigate("/login");

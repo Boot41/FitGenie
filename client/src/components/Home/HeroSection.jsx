@@ -16,7 +16,7 @@ const HeroSection = () => {
       ></div>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white mt-12">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white ">
         <h1 className="text-5xl font-extrabold leading-tight">
           Your Personalized{" "}
           <span className="text-yellow-400">Fitness Journey</span> Starts Here
