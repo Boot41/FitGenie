@@ -61,12 +61,12 @@ export const generateAiDiet = async (data) => {
     const toastId = toast.loading("FitGenie working its magic ✨")
     try {
         const response = await apiClient.post("/profile/genrateDiet",data);
+        
         toast.dismiss(toastId)
         return response;
     } catch (error) {
         toast.dismiss(toastId)
-        toast.error(error.response.data.message)
+        // toast.error(error.response.data.message)
         console.log(error);
-        throw error;
     }
 };

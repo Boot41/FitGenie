@@ -23,7 +23,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "AI Diets", path: "/diet" },
-    { name: "AI Workout", path: "/features" },
+    { name: "AI Workout", path: "/workout" },
     { name: "Profile", path: "/profile" },
     { name: "Contact Us", path: "/contact" },
   ];

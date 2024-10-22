@@ -1,7 +1,7 @@
-import { getGroqChatCompletion } from '../config/groq.js';
+import { groqDietChatCompletion } from '../config/groq.js';
 import User from '../models/User.js';
 
-
+// Get user profile
 export const getUserProfile = async (req, res) => {
     try {
         const email = req.user.email;
@@ -50,13 +50,12 @@ export const updateUserProfile = async (req, res) => {
 
 export const aiGenerateDiet = async (req, res) => {
     const userInput = req.body;
-
+    
     try {
+        const chatCompletion = await groqDietChatCompletion(userInput);
 
-        const chatCompletion = await getGroqChatCompletion(userInput);
-
-        const responseContent = chatCompletion.choices[0]?.message?.content || '';
-
+        const responseContent =  chatCompletion.choices[0]?.message?.content || '';
+        
         
         res.status(200).json({ message: responseContent });
     } catch (error) {
