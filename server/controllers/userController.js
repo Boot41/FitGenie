@@ -1,4 +1,4 @@
-import { groqDietChatCompletion } from '../config/groq.js';
+import {  groqDietGenerator, groqWorkoutGenerator } from '../config/groq.js';
 import User from '../models/User.js';
 
 // Get user profile
@@ -47,19 +47,40 @@ export const updateUserProfile = async (req, res) => {
     }
 };
 
-
-export const aiGenerateDiet = async (req, res) => {
+// Generate Diet
+export const aiDietGenerate = async (req, res) => {
     const userInput = req.body;
-    
-    try {
-        const chatCompletion = await groqDietChatCompletion(userInput);
 
-        const responseContent =  chatCompletion.choices[0]?.message?.content || '';
-        
-        
+    try {
+        const chatCompletion = await groqDietGenerator(userInput);
+
+        const responseContent = chatCompletion.choices[0]?.message?.content || '';
+
+        console.log("responseContent - ", responseContent);
+
+
         res.status(200).json({ message: responseContent });
     } catch (error) {
         console.error('Error calling Groq API:', error);
         res.status(500).json({ error: 'Error generating Diet.' });
+    }
+}
+
+// Generate Workout
+export const aiWorkoutGenerate = async (req, res) => {
+    const userInput = req.body;
+
+    try {
+        const chatCompletion = await groqWorkoutGenerator(userInput);
+
+        const responseContent = chatCompletion.choices[0]?.message?.content || '';
+
+        console.log("responseContent - ", responseContent);
+
+
+        res.status(200).json({ message: JSON.parse(responseContent) });
+    } catch (error) {
+        console.error('Error calling Groq API:', error);
+        res.status(500).json({ error: 'Error generating Workout.' });
     }
 }

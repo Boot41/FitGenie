@@ -1,33 +1,29 @@
 /* eslint-disable no-unused-vars */
-import { generateAiDiet } from "../../api/api";
+import { generateAiWorkout } from "../../api/api";
 import useUserStore from "../../store/useUserStore";
 import { useState } from "react";
-import DietPlanDashboard from "./DietPlanDashboard";
+import WorkoutDisplay from "./WorkoutDisplay";
 
-const GenerateDiet = () => {
+const GenerateWorkout = () => {
   const { userDetails } = useUserStore();
-  const [dietPlan, setDietPlan] = useState("");
+  const [workoutPlan, setWorkOutPlan] = useState("");
 
   const handleGenerateDiet = async () => {
-    const res = await generateAiDiet(userDetails);
-
-    let jsonObject;
-    try {
-      jsonObject = JSON.parse(res.message);
-      setDietPlan(jsonObject);
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await generateAiWorkout(userDetails);
+    console.log(userDetails);
+    console.log(res.message);
+    
+    setWorkOutPlan(res.message);
   };
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-orange-200 to-yellow-300 pt-4 ">
       <div className="w-10/12 bg-gray-50 shadow-lg rounded-lg p-8 text-center ">
         <h1 className="text-5xl font-bold text-gray-800 mb-4">
-          Your AI Diet Plan
+          Your AI Workout Planner
         </h1>
         <p className="text-gray-600 text-xl font-semibold">
-          Let us help you generate a personalized diet plan using AI tailored
+          Let us help you generate a personalized Workout plan using AI tailored
           just for you.
         </p>
         <p className="font-semibold text-sm opacity-80 mb-8">
@@ -40,9 +36,9 @@ const GenerateDiet = () => {
           Generate Diet
         </button>
       </div>
-      {dietPlan && <DietPlanDashboard data={dietPlan} />}
+      {workoutPlan && <WorkoutDisplay workoutData={workoutPlan} />}
     </div>
   );
 };
 
-export default GenerateDiet;
+export default GenerateWorkout;

@@ -6,12 +6,9 @@ import HomePage from "./components/Home/HomePage";
 import ProfileForm from "./components/Form/ProfileForm";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import AiDiet from "./components/diet/AiDiet";
-import WorkoutDisplay from "./components/workout/WorkoutDisplay";
+import AiWorkout from "./components/workout/AiWorkout";
 
 const App = () => {
-
-
-
   
   return (
     <div className="bg-white">
@@ -40,7 +37,7 @@ const App = () => {
             path="/workout"
             element={
               <ProtectedRoute>
-                <WorkoutDisplay />
+                <AiWorkout />
               </ProtectedRoute>
             }
           />

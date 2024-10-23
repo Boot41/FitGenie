@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   ChevronDown,
@@ -11,111 +12,10 @@ import {
 } from "lucide-react";
 
 
-const workoutData = {
-  programOverview: {
-    primaryFocus: "Strength and Conditioning",
-    sessionsPerWeek: 4,
-    totalDuration: 180, // in minutes
-    intensityLevel: "Moderate",
-    weeklyFrequency: 4,
-  },
-  workoutSessions: [
-    {
-      day: "Monday",
-      focus: "Upper Body",
-      duration: 60, // in minutes
-      warmup: {
-        duration: 10, // in minutes
-        exercises: [
-          { name: "Arm Circles", sets: 1, reps: "15" },
-          { name: "Push-ups", sets: 2, reps: "10" },
-        ],
-      },
-      mainWorkout: [
-        {
-          exerciseName: "Bench Press",
-          sets: 3,
-          reps: "8",
-          rpe: "7",
-          rest: "90 seconds",
-          tempoNotes: "2-1-1",
-          formCues: [
-            "Keep your back flat.",
-            "Don’t let your elbows flare out.",
-          ],
-          alternatives: ["Incline Dumbbell Press", "Chest Fly"],
-        },
-        {
-          exerciseName: "Dumbbell Row",
-          sets: 3,
-          reps: "10",
-          rpe: "8",
-          rest: "60 seconds",
-          tempoNotes: "2-0-2",
-          formCues: [
-            "Keep your core tight.",
-            "Pull with your elbows, not your hands.",
-          ],
-          alternatives: ["Barbell Row", "Lat Pulldown"],
-        },
-      ],
-      cooldown: {
-        duration: 5, // in minutes
-        exercises: [
-          { name: "Shoulder Stretch", duration: "30 seconds" },
-          { name: "Tricep Stretch", duration: "30 seconds" },
-        ],
-      },
-    },
-    {
-      day: "Wednesday",
-      focus: "Lower Body",
-      duration: 60,
-      warmup: {
-        duration: 10,
-        exercises: [
-          { name: "Leg Swings", sets: 1, reps: "15" },
-          { name: "Bodyweight Squats", sets: 2, reps: "10" },
-        ],
-      },
-      mainWorkout: [
-        {
-          exerciseName: "Squats",
-          sets: 4,
-          reps: "10",
-          rpe: "8",
-          rest: "90 seconds",
-          tempoNotes: "3-0-1",
-          formCues: ["Keep your chest up.", "Drive through your heels."],
-          alternatives: ["Leg Press", "Goblet Squats"],
-        },
-        {
-          exerciseName: "Lunges",
-          sets: 3,
-          reps: "10 each leg",
-          rpe: "7",
-          rest: "60 seconds",
-          tempoNotes: "2-0-2",
-          formCues: [
-            "Step far enough to keep your knee behind your toes.",
-            "Engage your core.",
-          ],
-          alternatives: ["Step-ups", "Bulgarian Split Squats"],
-        },
-      ],
-      cooldown: {
-        duration: 5,
-        exercises: [
-          { name: "Hamstring Stretch", duration: "30 seconds" },
-          { name: "Quadriceps Stretch", duration: "30 seconds" },
-        ],
-      },
-    },
-  ],
-};
 
 
-const WorkoutDisplay = () => {
+
+const WorkoutDisplay = ({workoutData}) => {
   const [activeDay, setActiveDay] = useState(0);
   const [expandedExercise, setExpandedExercise] = useState(null);
 
@@ -130,7 +30,7 @@ const WorkoutDisplay = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4 bg-gray-50 min-h-screen">
+    <div className="w-10/12 mx-auto p-4 bg-gray-50 min-h-screen my-6 rounded-lg shadow-lg">
       {/* Header Stats */}
       <div className="bg-white rounded-xl shadow-lg mb-6 overflow-hidden">
         <div className="bg-yellow-400 px-6 py-4">
