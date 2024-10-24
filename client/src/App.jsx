@@ -6,21 +6,13 @@ import HomePage from "./components/Home/HomePage";
 import ProfileForm from "./components/Form/ProfileForm";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import AiDiet from "./components/diet/AiDiet";
+import AiWorkout from "./components/workout/AiWorkout";
 import useUserStore from "./store/useUserStore";
-import { getUserProfile } from "./api/api";
-import { useEffect } from "react";
 
 const App = () => {
-  const { setUserDetails } = useUserStore();
+  const { userDetails } = useUserStore();
+  console.log("UserDetails - ", userDetails);
 
-  const getProfileData = async () => {
-    const data = await getUserProfile();
-    setUserDetails(data);
-  };
-
-  useEffect(() => {
-    getProfileData();
-  }, []);
   return (
     <div className="bg-white">
       <Router>
@@ -41,6 +33,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <AiDiet />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/workout"
+            element={
+              <ProtectedRoute>
+                <AiWorkout />
               </ProtectedRoute>
             }
           />

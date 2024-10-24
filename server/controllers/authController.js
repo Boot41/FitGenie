@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
         
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await User.create({ name:fullName, email, password: hashedPassword });
+        const newUser = await User.create({ name:fullName,  email, password: hashedPassword });
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {
@@ -45,7 +45,7 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
-        const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '5h' });
+        const token = jwt.sign({ email: user.email ,id: user.id, }, JWT_SECRET, { expiresIn: '5h' });
 
         res.json({ message: 'Logged in successfully', token });
     } catch (err) {
@@ -53,6 +53,3 @@ export const login = async (req, res) => {
     }
 };
 
-export const dashboard = (req, res) => {
-    res.json({ message: `Welcome to your dashboard, ${req.user.email}` });
-};

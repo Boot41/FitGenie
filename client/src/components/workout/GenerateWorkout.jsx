@@ -1,32 +1,33 @@
 import toast from "react-hot-toast";
 import useUserStore from "../../store/useUserStore";
-import DietPlanDashboard from "./DietPlanDashboard";
-import {useNavigate}  from "react-router-dom"
+import WorkoutDisplay from "./WorkoutDisplay";
+import { useNavigate } from "react-router";
 
-const GenerateDiet = () => {
+const GenerateWorkout = () => {
   const navigate = useNavigate();
-  const { dietPlan, generateAndSaveDiet, valuesPresent } = useUserStore();
+
+  const { workoutPlan, generateAndSaveWorkout, valuesPresent } = useUserStore();
 
   const handleGenerateDiet = async () => {
     if (valuesPresent()) {
-      generateAndSaveDiet();
+      generateAndSaveWorkout();
     } else {
       toast.error("Please complete the profile details first 😵");
       navigate('/profile')
       return;
     }
   };
-  
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-orange-200 to-yellow-300 pt-4 ">
-      {!dietPlan ? (
+      {!workoutPlan ? (
         <div className="w-10/12 bg-gray-50 shadow-lg rounded-lg p-8 text-center ">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">
-            Your AI Diet Plan
+            Your AI Workout Planner
           </h1>
           <p className="text-gray-600 text-xl font-semibold">
-            Let us help you generate a personalized diet plan using AI tailored
-            just for you.
+            Let us help you generate a personalized Workout plan using AI
+            tailored just for you.
           </p>
           <p className="font-semibold text-sm opacity-80 mb-8">
             If the genie failed please do try again cause its not you it us 👀
@@ -39,10 +40,10 @@ const GenerateDiet = () => {
           </button>
         </div>
       ) : (
-        <DietPlanDashboard data={dietPlan} />
+        <WorkoutDisplay workoutData={workoutPlan} />
       )}
     </div>
   );
 };
 
-export default GenerateDiet;
+export default GenerateWorkout;
