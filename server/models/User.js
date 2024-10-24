@@ -24,11 +24,11 @@ const User = sequelize.define('User', {
     allowNull: true,
   },
   height: {
-    type: DataTypes.FLOAT, // Height in cm
+    type: DataTypes.FLOAT, 
     allowNull: true,
   },
   weight: {
-    type: DataTypes.FLOAT, // Weight in kg
+    type: DataTypes.FLOAT, 
     allowNull: true,
   },
   activityLevel: {
@@ -59,12 +59,8 @@ const User = sequelize.define('User', {
     type: DataTypes.ENUM('Less than 1L', '2-3L', 'Above 3L'),
     allowNull: true,
   },
-  smokingHabit: {
-    type: DataTypes.ENUM('Yes', 'No'),
-    allowNull: true,
-  },
-  alcoholHabit: {
-    type: DataTypes.ENUM('Yes', 'No'),
+  intensity: {
+    type: DataTypes.ENUM('Low', 'Medium', 'High'),
     allowNull: true,
   },
   currentlyWorkout: {
@@ -72,7 +68,7 @@ const User = sequelize.define('User', {
     allowNull: true,
   },
   workoutType: {
-    type: DataTypes.ENUM('Cardio', 'Weightlifting', 'Calisthenics'),
+    type: DataTypes.ENUM('Cardio', 'Strength', 'Flexibility', 'Mixed'),
     allowNull: true,
   },
   workoutDuration: {
@@ -87,13 +83,20 @@ const User = sequelize.define('User', {
       '4 days a week',
       '5 days a week',
       '6 days a week',
-      '7 days a week'
     ),
     allowNull: true,
   },
   workoutTimePreference: {
     type: DataTypes.ENUM('Morning', 'Afternoon', 'Evening'),
     allowNull: true,
+  },
+  hasCurrentDiet: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  hasCurrentWorkout: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 }, {
 });

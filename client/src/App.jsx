@@ -7,9 +7,12 @@ import ProfileForm from "./components/Form/ProfileForm";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import AiDiet from "./components/diet/AiDiet";
 import AiWorkout from "./components/workout/AiWorkout";
+import useUserStore from "./store/useUserStore";
 
 const App = () => {
-  
+  const { userDetails } = useUserStore();
+  console.log("UserDetails - ", userDetails);
+
   return (
     <div className="bg-white">
       <Router>
