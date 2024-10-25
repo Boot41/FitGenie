@@ -144,6 +144,7 @@ const useUserStore = create()(
         set({
           userDetails: null,
           dietPlan: null,
+          workoutPlan: null,
         });
       },
     }),

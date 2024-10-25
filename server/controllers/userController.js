@@ -117,7 +117,11 @@ export const getDiet = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const response = await Diet.findOne({ userId });
+        const response = await Diet.findOne({
+            where: {
+                userId: userId
+            }
+        });
         const diet = response.data
 
         if (!diet) {
@@ -173,9 +177,12 @@ export const saveWorkout = async (req, res) => {
 
 export const getWorkout = async (req, res) => {
     const userId = req.user.id;
-
     try {
-        const response = await Workout.findOne({ userId });
+        const response = await Workout.findOne({
+            where: {
+                userId: userId
+            }
+        });
         const Workout = response.data
 
         if (!Workout) {
