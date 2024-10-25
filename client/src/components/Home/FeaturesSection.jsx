@@ -5,24 +5,24 @@ const FeaturesSection = () => {
     {
       title: 'Personalized Diet Plans',
       description: 'Get diet plans tailored to your goals and lifestyle.',
-      icon: <HiOutlineHeart  className="text-4xl text-yellow-400" />,
+      icon: <HiOutlineHeart  className="text-4xl text-purple-500" />,
     },
     {
       title: 'Track Your Progress',
       description: 'Monitor your progress with detailed insights and reports.',
-      icon: <HiOutlineScale className="text-4xl text-yellow-400" />,
+      icon: <HiOutlineScale className="text-4xl text-purple-500" />,
     },
     {
       title: 'Join a Community',
       description: 'Engage with a supportive community of fitness enthusiasts.',
-      icon: <HiOutlineUserGroup className="text-4xl text-yellow-400" />,
+      icon: <HiOutlineUserGroup className="text-4xl text-purple-500" />,
     },
   ];
 
   return (
-    <section className="py-16 px-24 bg-yellow-50">
+    <section className="py-16 px-24 bg-purple-200">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold text-gray-800">Why Choose Us</h2>
+        <h2 className="text-4xl font-bold text-purple-500 ">Why Choose Us</h2>
         <p className="text-lg text-gray-600 mt-4 font-semibold">
           Our app is designed to help you stay on track and achieve your goals.
         </p>

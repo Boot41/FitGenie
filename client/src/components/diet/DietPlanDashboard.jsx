@@ -13,6 +13,7 @@ import { MacroCard } from "./meal/MacroCard";
 import { MealCard } from "./meal/MealCard";
 
 const DietPlanDashboard = ({ data }) => {
+  
   const meals = [
     { icon: Coffee, ...data.meals[0] },
     { icon: Apple, ...data.meals[1] },
@@ -21,11 +22,11 @@ const DietPlanDashboard = ({ data }) => {
     { icon: ChefHat, ...data.meals[4] },
     { icon: Apple, ...data.meals[5] },
   ];
-
+  
   return (
     <div className="w-full">
       {data && (
-        <div className="w-10/12 mx-auto p-6 bg-yellow-100 min-h-screen my-6 rounded-lg shadow-lg">
+        <div className="w-10/12 mx-auto p-6 bg-purple-100 min-h-screen my-6 rounded-lg shadow-lg">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">
               Daily Nutrition Plan
@@ -57,7 +58,7 @@ const DietPlanDashboard = ({ data }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                <Utensils className="text-yellow-500" /> Meals
+                <Utensils className="text-purple-500" /> Meals
               </h2>
               {meals.length > 0 &&
                 meals.map((meal, idx) => (
@@ -68,12 +69,12 @@ const DietPlanDashboard = ({ data }) => {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-4">
-                  <Droplet className="text-yellow-500" /> Water Intake
+                  <Droplet className="text-purple-500" /> Water Intake
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <div className="flex items-center justify-between">
                     <span className="text-lg">Daily Target:</span>
-                    <span className="text-2xl font-bold text-yellow-600">
+                    <span className="text-2xl font-bold text-purple-600">
                       3L
                     </span>
                   </div>
@@ -82,13 +83,13 @@ const DietPlanDashboard = ({ data }) => {
 
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-4">
-                  <Info className="text-yellow-500" /> Guidelines
+                  <Info className="text-purple-500" /> Guidelines
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <ul className="space-y-3">
                     {data?.guidelines?.map((guideline, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <div className="h-2 w-2 mt-2 rounded-full bg-yellow-400" />
+                        <div className="h-2 w-2 mt-2 rounded-full bg-purple-500" />
                         <span>{guideline}</span>
                       </li>
                     ))}
@@ -99,7 +100,7 @@ const DietPlanDashboard = ({ data }) => {
               {data?.supplements?.length > 0 && (
                 <div>
                   <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-4">
-                    <Pill className="text-yellow-500" /> Supplements
+                    <Pill className="text-purple-500" /> Supplements
                   </h2>
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <div className="space-y-2">
@@ -121,13 +122,13 @@ const DietPlanDashboard = ({ data }) => {
 
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-4">
-                  <Scale className="text-yellow-500" /> Meal Prep Tips
+                  <Scale className="text-purple-500" /> Meal Prep Tips
                 </h2>
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <ul className="space-y-3">
                     {data?.mealPrepTips?.map((tip, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <div className="h-2 w-2 mt-2 rounded-full bg-yellow-400" />
+                        <div className="h-2 w-2 mt-2 rounded-full bg-purple-500" />
                         <span>{tip}</span>
                       </li>
                     ))}

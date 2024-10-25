@@ -18,7 +18,7 @@ const GenerateDiet = () => {
   };
   
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-orange-200 to-yellow-300 pt-4 ">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-200 to-purple-400 pt-4 ">
       {!dietPlan ? (
         <div className="w-10/12 bg-gray-50 shadow-lg rounded-lg p-8 text-center ">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">
@@ -32,7 +32,7 @@ const GenerateDiet = () => {
             If the genie failed please do try again cause its not you it us 👀
           </p>
           <button
-            className="bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 transform hover:bg-yellow-600 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-400"
+            className="bg-purple-500 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 transform hover:bg-purple-600 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500"
             onClick={handleGenerateDiet}
           >
             Generate Diet
