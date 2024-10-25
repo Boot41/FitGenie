@@ -17,7 +17,7 @@ const FitnessForm = () => {
     deleteWorkout,
   } = useUserStore();
   const [showModal, setShowModal] = useState(false);
-  const { register, handleSubmit, reset, watch } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [actionType, setActionType] = useState("");
   const [profileImage, setProfileImage] = useState(null);
 
@@ -28,7 +28,8 @@ const FitnessForm = () => {
   }, [userDetails, reset]);
 
   const onSubmit = async (data) => {
-    updateProfile(data);
+    const updatedData = { ...data, image: profileImage };
+    updateProfile(updatedData);
   };
 
   if (!userDetails) {
@@ -38,7 +39,6 @@ const FitnessForm = () => {
   const handleDeleteDiet = async () => {
     try {
       await deleteDiet();
-      toast.success("Diet plan deleted successfully");
       setShowModal(false);
     } catch (error) {
       toast.error("Failed to delete diet plan");
@@ -60,11 +60,27 @@ const FitnessForm = () => {
   };
 
   const handleImageChange = (e) => {
+    e.preventDefault();
     const file = e.target.files?.[0];
+
     if (file) {
-      setProfileImage(URL.createObjectURL(file));
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+
+      if (validImageTypes.includes(file.type)) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setProfileImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        toast.error("Please select a valid image file (JPEG, PNG, GIF).");
+        e.target.value = "";
+      }
     }
   };
+
+  console.log("jikjfsdcx ",userDetails.image);
+  
 
   return (
     <div className="bg-gradient-to-br from-purple-400 to-purple-200">
@@ -82,9 +98,9 @@ const FitnessForm = () => {
               <div className="bg-white rounded-lg shadow-md p-6">
                 <div className="relative mb-4">
                   <div className="w-full aspect-square rounded-lg overflow-hidden bg-purple-200">
-                    {profileImage ? (
+                    {profileImage ||userDetails.image ? (
                       <img
-                        src={profileImage}
+                        src={profileImage || userDetails.image}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />

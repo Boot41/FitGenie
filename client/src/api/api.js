@@ -44,7 +44,7 @@ export const getUserProfile = async () => {
 
 
 export const updateUserProfile = async (data) => {
-    try {
+    try {        
         const response = await apiClient.put("/profile/updateUser", data);
         return response;
     } catch (error) {

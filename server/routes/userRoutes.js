@@ -5,7 +5,7 @@ import verifyToken from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.get('/getUser', verifyToken, getUserProfile);
-router.put('/updateUser', verifyToken, updateUserProfile);
+router.put('/updateUser',verifyToken, updateUserProfile);
 
 router.post('/genrateWorkout', verifyToken, aiWorkoutGenerate);
 router.post('/setWorkout', verifyToken, saveWorkout);
