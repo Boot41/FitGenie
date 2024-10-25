@@ -30,10 +30,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-50 to-yellow-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-50 to-purple-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-center text-yellow-400 pb-2">
+          <h2 className="text-3xl font-bold text-center text-purple-500 pb-2">
             <Link to={"/"}>FitGenie</Link>
           </h2>
           <p className="text-xl font-semibold">Login to Your Account</p>
@@ -89,13 +89,13 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary border-yellow-600 hover:border-yellow-400  w-full bg-yellow-400 hover:bg-yellow-600"
+            className="btn btn-primary border-purple-600 hover:border-purple-500  w-full bg-purple-500 hover:bg-purple-600"
           >
             Login
           </button>
           <div className="text-center text-gray-600">
             Don&lsquo;t have an account?{" "}
-            <Link to="/signup" className="text-yellow-400 hover:underline">
+            <Link to="/signup" className="text-purple-500 hover:underline">
               Sign Up
             </Link>
           </div>

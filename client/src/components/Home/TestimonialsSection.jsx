@@ -27,12 +27,12 @@ const TestimonialsSection = () => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold text-gray-800">What Our Users Say</h2>
+        <h2 className="text-4xl font-bold text-purple-500">What Our Users Say</h2>
 
-        <div className="carousel carousel-center rounded-box mt-10">
+        <div className="carousel carousel-center  mt-10">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="carousel-item pr-4">
-              <div className="bg-yellow-100 p-8 rounded-lg shadow-lg text-center">
+              <div className="bg-purple-200 p-8 rounded-lg shadow-lg text-center">
                 <div className="flex justify-center mb-4">
                   {testimonial.image && (
                     <img

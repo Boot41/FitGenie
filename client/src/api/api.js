@@ -44,9 +44,8 @@ export const getUserProfile = async () => {
 
 
 export const updateUserProfile = async (data) => {
-    try {
+    try {        
         const response = await apiClient.put("/profile/updateUser", data);
-        toast.success(response.message)
         return response;
     } catch (error) {
         toast.error(error.response.data.message)
@@ -103,7 +102,6 @@ export const generateAiWorkout = async (data) => {
         const response = await apiClient.post("/profile/genrateWorkout", data);
 
         toast.dismiss(toastId)
-        toast.success("Here you go 💪")
         return response;
     } catch (error) {
         toast.dismiss(toastId)

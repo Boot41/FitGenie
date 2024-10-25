@@ -7,7 +7,7 @@ const HeroSection = () => {
 
   const token = localStorage.getItem("token");
   return (
-    <section className="relative h-screen bg-indigo-100">
+    <section className="relative h-screen bg-purple-100">
       <div
         className="absolute inset-0 bg-cover bg-top"
         style={{
@@ -19,7 +19,7 @@ const HeroSection = () => {
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white ">
         <h1 className="text-5xl font-extrabold leading-tight">
           Your Personalized{" "}
-          <span className="text-yellow-400">Fitness Journey</span> Starts Here
+          <span className="text-purple-500">Fitness Journey</span> Starts Here
         </h1>
         <p className="text-lg mt-4 font-semibold max-w-2xl opacity-80">
           Get customized workout and diet plans tailored just for you by AI.
@@ -36,7 +36,7 @@ const HeroSection = () => {
               }
             }}
             
-            className="flex items-center justify-center mt-16 px-12 font-semibold py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 animate-bounce"
+            className="flex items-center justify-center mt-16 px-12 font-semibold py-3 bg-purple-500 text-white rounded-full shadow-lg hover:bg-purple-600 animate-bounce"
           >
             Get Started{" "}
             <span className="ml-2">

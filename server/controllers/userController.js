@@ -2,6 +2,7 @@ import { groqDietGenerator, groqWorkoutGenerator } from '../config/groq.js';
 import User from '../models/User.js';
 import Workout from '../models/Workout.js';
 import Diet from '../models/Diet.js';
+import cloudinary from "../config/cloudinary.js"
 
 // Get user profile
 export const getUserProfile = async (req, res) => {
@@ -27,6 +28,11 @@ export const updateUserProfile = async (req, res) => {
     try {
         const data = req.body;
         const email = req.user.email;
+        const image = data.image;
+
+        const cloudinaryRes = await cloudinary.uploader.upload(image, {
+            folder: process.env.FOLDER_NAME
+        })
 
         if (!email) {
             return res.status(404).json({ message: 'Error occured email not found' });
@@ -36,7 +42,7 @@ export const updateUserProfile = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
+        data.image = cloudinaryRes.url;
         const response = await user.update(data);
         const { password, createdAt, updatedAt, ...userProfile } = response.dataValues;
 

@@ -17,7 +17,7 @@ const FitnessForm = () => {
     deleteWorkout,
   } = useUserStore();
   const [showModal, setShowModal] = useState(false);
-  const { register, handleSubmit, reset, watch } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [actionType, setActionType] = useState("");
   const [profileImage, setProfileImage] = useState(null);
 
@@ -28,7 +28,8 @@ const FitnessForm = () => {
   }, [userDetails, reset]);
 
   const onSubmit = async (data) => {
-    updateProfile(data);
+    const updatedData = { ...data, image: profileImage };
+    updateProfile(updatedData);
   };
 
   if (!userDetails) {
@@ -38,7 +39,6 @@ const FitnessForm = () => {
   const handleDeleteDiet = async () => {
     try {
       await deleteDiet();
-      toast.success("Diet plan deleted successfully");
       setShowModal(false);
     } catch (error) {
       toast.error("Failed to delete diet plan");
@@ -48,7 +48,6 @@ const FitnessForm = () => {
   const handelDeleteWorkout = async () => {
     try {
       await deleteWorkout();
-      toast.success("Workout plan deleted successfully");
       setShowModal(false);
     } catch (error) {
       toast.error("Failed to delete Workout plan");
@@ -61,14 +60,30 @@ const FitnessForm = () => {
   };
 
   const handleImageChange = (e) => {
+    e.preventDefault();
     const file = e.target.files?.[0];
+
     if (file) {
-      setProfileImage(URL.createObjectURL(file));
+      const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+
+      if (validImageTypes.includes(file.type)) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setProfileImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        toast.error("Please select a valid image file (JPEG, PNG, GIF).");
+        e.target.value = "";
+      }
     }
   };
 
+  console.log("jikjfsdcx ",userDetails.image);
+  
+
   return (
-    <div>
+    <div className="bg-gradient-to-br from-purple-400 to-purple-200">
       {userDetails && (
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -78,14 +93,14 @@ const FitnessForm = () => {
             Fitness Profile
           </h2>
 
-          <div className="flex w-full gap-4">
-            <div className="w-[30%]">
+          <div className="block md:flex w-full gap-4 ">
+            <div className="w-full md:w-[25%]">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <div className="relative mb-4">
-                  <div className="w-full aspect-square rounded-lg overflow-hidden bg-gray-200">
-                    {profileImage ? (
+                  <div className="w-full aspect-square rounded-lg overflow-hidden bg-purple-200">
+                    {profileImage ||userDetails.image ? (
                       <img
-                        src={profileImage}
+                        src={profileImage || userDetails.image}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />
@@ -107,7 +122,7 @@ const FitnessForm = () => {
                       </div>
                     )}
                   </div>
-                  <label className="absolute bottom-2 right-2 bg-yellow-400 rounded-full p-2 cursor-pointer hover:bg-yellow-500 transition-colors">
+                  <label className="absolute bottom-2 right-2 bg-purple-500 rounded-full p-2 cursor-pointer hover:bg-purple-500 transition-colors">
                     <svg
                       className="w-5 h-5 text-white"
                       fill="none"
@@ -141,311 +156,303 @@ const FitnessForm = () => {
                   </p>
                 </div>
               </div>
+              {dietPlan && (
+                <div className="mt-4 bg-gray-50 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => openModal("diet")}
+                    className="w-full p-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                  >
+                    Delete Current Diet Plan
+                  </button>
+                </div>
+              )}
+              {workoutPlan && (
+                <div className="mt-4  bg-gray-50 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => openModal("workout")}
+                    className="w-full p-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                  >
+                    Delete Current Workout Plan
+                  </button>
+                </div>
+              )}
             </div>
+            {/* ------------------------------BASIC INFO------------------------------------------ */}
+            <div className="w-[75%] ">
+              <div className="bg-purple-50 mt-4 md:mt-0 p-4 w-full rounded-lg">
+                <div className="block md:flex w-full gap-4">
+                  <div className="mb-4 w-full">
+                    <label className="block mb-2 text-gray-800 font-semibold">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      {...register("name")}
+                      className="w-full p-2 border rounded bg-inherit text-gray-800 "
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
 
-            {/* ------------------------------------------------------------------------ */}
-            <div className="bg-white p-4 w-full rounded-lg">
-              <div className="flex w-full gap-4">
-                <div className="mb-4">
-                  <label className="block mb-2 text-gray-800 font-semibold">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    {...register("name")}
-                    className="w-full p-2 border rounded bg-inherit text-gray-800 "
-                    placeholder="John Doe"
-                    required
-                  />
+                  <div className="mb-4 w-full">
+                    <label className="block mb-2 text-gray-800 font-semibold">
+                      Age
+                    </label>
+                    <input
+                      type="number"
+                      {...register("age")}
+                      className="w-full p-2 border rounded bg-inherit text-gray-800"
+                      placeholder="Enter you Age"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4 w-full">
+                    <label className="block mb-2 text-gray-800 font-semibold">
+                      Gender
+                    </label>
+                    <select
+                      {...register("gender")}
+                      className="w-full p-2 border rounded bg-inherit text-gray-800"
+                      required
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="mb-4">
-                  <label className="block mb-2 text-gray-800 font-semibold">
-                    Age
-                  </label>
-                  <input
-                    type="number"
-                    {...register("age")}
-                    className="w-full p-2 border rounded bg-inherit text-gray-800"
-                    placeholder="Enter you Age"
-                    required
-                  />
+                <div className="flex w-full gap-4">
+                  <div className="mb-4 w-full">
+                    <label className="block mb-2 text-gray-800 font-semibold">
+                      Height (cm)
+                    </label>
+                    <input
+                      type="number"
+                      {...register("height")}
+                      className="w-full p-2 border rounded bg-inherit text-gray-800"
+                      placeholder="Enter you Height"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-4 w-full">
+                    <label className="block mb-2 text-gray-800 font-semibold">
+                      Weight (kg)
+                    </label>
+                    <input
+                      type="number"
+                      {...register("weight")}
+                      className="w-full p-2 border rounded bg-inherit text-gray-800"
+                      placeholder="Enter your Weight"
+                      required
+                    />
+                  </div>
                 </div>
+              </div>
+
+              {/* -------------------------------DIET INFO----------------------------------------- */}
+              <div className=" gap-4 bg-white mt-4  p-4 w-full rounded-lg">
+                <h1 className="font-semibold py-4 text-2xl">Diet Info</h1>
                 <div className="mb-4">
                   <label className="block mb-2 text-gray-800 font-semibold">
-                    Gender
+                    Diet Type
                   </label>
                   <select
-                    {...register("gender")}
+                    {...register("dietType")}
                     className="w-full p-2 border rounded bg-inherit text-gray-800"
                     required
                   >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option value="">Select Diet Type</option>
+                    <option value="Veg">Veg</option>
+                    <option value="Non-Veg">Non-Veg</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Any">Any</option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Food Restrictions
+                  </label>
+                  <input
+                    type="text"
+                    {...register("foodRestrictions")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    placeholder="List if any like Milk, Nuts ..."
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Injuries
+                  </label>
+                  <input
+                    type="text"
+                    {...register("injuries")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    placeholder="List if any like Dislocated Shoulder, Fractures, ..."
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Health Conditions
+                  </label>
+                  <input
+                    type="text"
+                    {...register("healthConditions")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    placeholder="List if any like diabetes, cardiovascular diseases ..."
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Water Intake
+                  </label>
+                  <select
+                    {...register("waterIntake")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    required
+                  >
+                    <option value="">Select Water Intake</option>
+                    <option value="Less than 1L">Less than 1L</option>
+                    <option value="2-3L">2-3L</option>
+                    <option value="Above 3L">Above 3L</option>
                   </select>
                 </div>
               </div>
+              {/* ---------------------WORKOUT PLAN-------------------------------- */}
 
-              <div className="flex w-full gap-4">
+              <div className=" gap-4 bg-white my-4  p-4 w-full rounded-lg">
+                <h1 className="font-semibold py-4 text-2xl">Workout Info</h1>
                 <div className="mb-4">
                   <label className="block mb-2 text-gray-800 font-semibold">
-                    Height (cm)
+                    Activity Level
+                  </label>
+                  <select
+                    {...register("activityLevel")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    required
+                  >
+                    <option value="">Select Activity Level</option>
+                    <option value="Sedentary">Sedentary</option>
+                    <option value="Lightly Active">Lightly Active</option>
+                    <option value="Moderately Active">Moderately Active</option>
+                    <option value="Very Active">Very Active</option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Fitness Goal
+                  </label>
+                  <select
+                    {...register("fitnessGoal")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    required
+                  >
+                    <option value="">Select Fitness Goal</option>
+                    <option value="Weight Loss">Weight Loss</option>
+                    <option value="Muscle Gain">Muscle Gain</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Endurance">Endurance</option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Workout Type
+                  </label>
+                  <select
+                    {...register("workoutType")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    required
+                  >
+                    <option value="">Select Workout Type</option>
+                    <option value="Cardio">Cardio</option>
+                    <option value="Strength">Strength</option>
+                    <option value="Flexibility">Flexibility</option>
+                    <option value="Mixed">Mixed</option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Workout Intensity
+                  </label>
+                  <select
+                    {...register("intensity")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    required
+                  >
+                    <option value="">Select Workout Type</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Workout Duration (mins)
                   </label>
                   <input
                     type="number"
-                    {...register("height")}
+                    {...register("workoutDuration")}
                     className="w-full p-2 border rounded bg-inherit text-gray-800"
-                    placeholder="Enter you Height"
                     required
                   />
                 </div>
 
                 <div className="mb-4">
                   <label className="block mb-2 text-gray-800 font-semibold">
-                    Weight (kg)
+                    Workout Frequency
                   </label>
-                  <input
-                    type="number"
-                    {...register("weight")}
+                  <select
+                    {...register("workoutFrequency")}
                     className="w-full p-2 border rounded bg-inherit text-gray-800"
-                    placeholder="Enter your Weight"
                     required
-                  />
+                  >
+                    <option value="">Select Frequency</option>
+                    <option value="1 day a week">1 day a week</option>
+                    <option value="2 days a week">2 days a week</option>
+                    <option value="3 days a week">3 days a week</option>
+                    <option value="4 days a week">4 days a week</option>
+                    <option value="5 days a week">5 days a week</option>
+                    <option value="6 days a week">6 days a week</option>
+                    <option value="7 days a week">7 days a week</option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-gray-800 font-semibold">
+                    Workout Time Preference
+                  </label>
+                  <select
+                    {...register("workoutTimePreference")}
+                    className="w-full p-2 border rounded bg-inherit text-gray-800"
+                    required
+                  >
+                    <option value="">Select Time Preference</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                  </select>
                 </div>
               </div>
-            </div>
-          </div>
-          {/* ------------------------------------------------------------------------ */}
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Activity Level
-            </label>
-            <select
-              {...register("activityLevel")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Activity Level</option>
-              <option value="Sedentary">Sedentary</option>
-              <option value="Lightly Active">Lightly Active</option>
-              <option value="Moderately Active">Moderately Active</option>
-              <option value="Very Active">Very Active</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Diet Type
-            </label>
-            <select
-              {...register("dietType")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Diet Type</option>
-              <option value="Veg">Veg</option>
-              <option value="Non-Veg">Non-Veg</option>
-              <option value="Vegan">Vegan</option>
-              <option value="Any">Any</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Food Restrictions
-            </label>
-            <input
-              type="text"
-              {...register("foodRestrictions")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              placeholder="List if any like Milk, Nuts ..."
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Fitness Goal
-            </label>
-            <select
-              {...register("fitnessGoal")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Fitness Goal</option>
-              <option value="Weight Loss">Weight Loss</option>
-              <option value="Muscle Gain">Muscle Gain</option>
-              <option value="Maintenance">Maintenance</option>
-              <option value="Endurance">Endurance</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Injuries
-            </label>
-            <input
-              type="text"
-              {...register("injuries")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              placeholder="List if any like Dislocated Shoulder, Fractures, ..."
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Health Conditions
-            </label>
-            <input
-              type="text"
-              {...register("healthConditions")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              placeholder="List if any like diabetes, cardiovascular diseases ..."
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Water Intake
-            </label>
-            <select
-              {...register("waterIntake")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Water Intake</option>
-              <option value="Less than 1L">Less than 1L</option>
-              <option value="2-3L">2-3L</option>
-              <option value="Above 3L">Above 3L</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Do you currently workout?
-            </label>
-            <select
-              {...register("currentlyWorkout")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Workout Type
-            </label>
-            <select
-              {...register("workoutType")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Workout Type</option>
-              <option value="Cardio">Cardio</option>
-              <option value="Strength">Strength</option>
-              <option value="Flexibility">Flexibility</option>
-              <option value="Mixed">Mixed</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Workout Intensity
-            </label>
-            <select
-              {...register("intensity")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Workout Type</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Workout Duration (mins)
-            </label>
-            <input
-              type="number"
-              {...register("workoutDuration")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Workout Frequency
-            </label>
-            <select
-              {...register("workoutFrequency")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Frequency</option>
-              <option value="1 day a week">1 day a week</option>
-              <option value="2 days a week">2 days a week</option>
-              <option value="3 days a week">3 days a week</option>
-              <option value="4 days a week">4 days a week</option>
-              <option value="5 days a week">5 days a week</option>
-              <option value="6 days a week">6 days a week</option>
-              <option value="7 days a week">7 days a week</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-800 font-semibold">
-              Workout Time Preference
-            </label>
-            <select
-              {...register("workoutTimePreference")}
-              className="w-full p-2 border rounded bg-inherit text-gray-800"
-              required
-            >
-              <option value="">Select Time Preference</option>
-              <option value="Morning">Morning</option>
-              <option value="Afternoon">Afternoon</option>
-              <option value="Evening">Evening</option>
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full p-2 bg-yellow-400 text-white rounded hover:bg-yellow-500 transition"
-          >
-            Submit
-          </button>
-          {dietPlan && (
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
               <button
-                type="button"
-                onClick={() => openModal("diet")}
-                className="w-full p-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                type="submit"
+                className="w-full mb-6 p-2 bg-purple-500 text-white rounded hover:bg-purple-500 transition"
               >
-                Delete Current Diet Plan
+                Submit
               </button>
             </div>
-          )}
-          {workoutPlan && (
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <button
-                type="button"
-                onClick={() => openModal("workout")}
-                className="w-full p-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-              >
-                Delete Current Workout Plan
-              </button>
-            </div>
-          )}
+          </div>
         </form>
       )}
       <ConfirmationModal

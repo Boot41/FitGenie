@@ -15,6 +15,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   age: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -24,11 +28,11 @@ const User = sequelize.define('User', {
     allowNull: true,
   },
   height: {
-    type: DataTypes.FLOAT, 
+    type: DataTypes.FLOAT,
     allowNull: true,
   },
   weight: {
-    type: DataTypes.FLOAT, 
+    type: DataTypes.FLOAT,
     allowNull: true,
   },
   activityLevel: {

@@ -27,13 +27,13 @@ const Navbar = () => {
     { name: "AI Diets", path: "/diet" },
     { name: "AI Workout", path: "/workout" },
     { name: "Profile", path: "/profile" },
-    { name: "Contact Us", path: "/contact" },
+    // { name: "Contact Us", path: "/contact" },
   ];
 
   return (
-    <nav className="bg-yellow-50 shadow-lg w-full">
+    <nav className="bg-purple-100 shadow-lg w-full">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        <Link to="/" className="text-yellow-400 font-extrabold text-2xl ">
+        <Link to="/" className="text-purple-500 font-extrabold text-2xl ">
           FitGenie
         </Link>
 
@@ -41,7 +41,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
-            className="text-yellow-400 focus:outline-none"
+            className="text-purple-500 focus:outline-none"
           >
             {isOpen ? (
               <HiX className="text-3xl" />
@@ -54,7 +54,7 @@ const Navbar = () => {
         {/* Navigation Links */}
         {token ? (
           <ul
-            className={`md:flex md:items-center md:space-x-8 text-gray-600 font-medium fixed md:relative bg-yellow-50 w-full md:w-auto left-0 md:left-auto top-0 md:top-auto transition-all duration-300 ease-in ${
+            className={`md:flex md:items-center md:space-x-8 text-gray-600 font-medium fixed md:relative bg-purple-100 w-full md:w-auto left-0 md:left-auto top-0 md:top-auto transition-all duration-300 ease-in ${
               isOpen ? "top-16 z-40" : "top-[-400px]"
             } md:top-auto`}
           >
@@ -63,9 +63,9 @@ const Navbar = () => {
                 <Link
                   to={link.path}
                   onClick={() => setIsOpen(false)} // Close menu on click (for mobile)
-                  className={`block text-center hover:text-yellow-400 ${
+                  className={`block text-center hover:text-purple-500 ${
                     location.pathname === link.path
-                      ? "text-yellow-400 font-bold py-2 px-4 border-2 border-yellow-400 rounded-full"
+                      ? "text-purple-500 font-bold py-2 px-4 border-2 border-purple-500 rounded-full"
                       : ""
                   }`}
                 >
@@ -89,13 +89,13 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-4">
             <Link
               to="/login"
-              className="bg-yellow-400 text-white font-semibold px-6 py-3 rounded-lg hover:bg-yellow-600"
+              className="bg-purple-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-purple-600"
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="bg-inherit text-yellow-400 font-semibold px-6 py-[10px] border-2 border-yellow-400 rounded-lg hover:bg-yellow-100"
+              className="bg-inherit text-purple-500 font-semibold px-6 py-[10px] border-2 border-purple-500 rounded-lg hover:bg-purple-100"
             >
               Sign Up
             </Link>
